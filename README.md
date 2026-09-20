@@ -40,7 +40,7 @@ flowchart LR
 
 ### Workflow 1: Reference-content ingestion
 
-![The complete Relay workflow as built in n8n](docs/relay-workflow-full.png)
+![The complete Relay workflow as built in n8n](docs/content-pipeline-full.png)
 
 Watches a Google Drive folder for new reference posts and stores their reusable patterns.
 
