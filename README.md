@@ -40,6 +40,8 @@ flowchart LR
 
 ### Workflow 1: Reference-content ingestion
 
+![The complete Relay workflow as built in n8n](docs/relay-workflow-full.png)
+
 Watches a Google Drive folder for new reference posts and stores their reusable patterns.
 
 1. **Trigger and duplicate check.** A Drive trigger polls the folder every minute. A Supabase lookup on the Drive file ID skips files that were already ingested.
@@ -126,6 +128,9 @@ Create an index named `linkedin-reference-content`. Its dimension must match the
 
 ### 4. Import and configure Workflow 2
 
+![The complete Relay workflow as built in n8n](docs/relay-workflow-full.png)
+
+
 1. Import `workflows/main-content-pipeline.json`.
 2. Attach credentials to every model, Pinecone, Supabase, Slack, Gmail and LinkedIn node.
 3. Set the Drive trigger to your post-content folder and point the Slack and email nodes at your reviewer.
@@ -158,18 +163,4 @@ Create an index named `linkedin-reference-content`. Its dimension must match the
 
 No production numbers are claimed. Once the pipeline runs on real topics, success can be measured from its own logs: approval, rejection and regeneration rates, unsupported-claim and privacy flags per draft, which hooks, structures and CTAs get approved, and time from source material to approved draft.
 
-## Known limitations
 
-- **Ingestion accepts PDF and JPEG only.** Other image types are not routed by the file-type Switch.
-- **Ingestion deduplication is file-level.** It keys on the Drive file ID, so a re-uploaded copy with a new file ID is treated as new.
-- **The Quality Checker currently runs on the same model as the Post Generator.** Its independence comes from its role, prompt and inputs. Using a different model family is a planned improvement.
-
-## Roadmap
-
-- Finish the topic inventory, eligibility view and duplicate-check loop
-- Compare strategy choices against approval outcomes using `post_review_log` and `published_posts`
-- Run the Quality Checker on a different model family from the Post Generator, to reduce shared blind spots between writer and reviewer
-
-## License
-
-Add a license before publishing, for example MIT. GitHub can add one from the repository's "Add file" menu.
